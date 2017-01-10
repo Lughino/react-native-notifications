@@ -129,6 +129,21 @@ export default class NotificationsIOS {
 
     NativeRNNotifications.requestPermissionsWithCategories(notificationCategories);
   }
+  
+  /**
+   * See what push permissions are currently enabled. `callback` will be
+   * invoked with a `permissions` object:
+   *
+   *  - `alert` :boolean
+   *  - `badge` :boolean
+   *  - `sound` :boolean
+   */
+  static checkPermissions(callback: Function) {
+    if(typeof callback !== 'function')
+      throw Error('Must provide a valid callback');
+    
+    NativeRNNotifications.checkPermissions(callback);
+  }
 
   /**
    * Unregister for all remote notifications received via Apple Push Notification service.
