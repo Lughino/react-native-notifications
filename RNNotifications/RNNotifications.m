@@ -431,6 +431,16 @@ RCT_EXPORT_METHOD(requestPermissionsWithCategories:(NSArray *)json)
     [RNNotifications requestPermissionsWithCategories:categories];
 }
 
+RCT_EXPORT_METHOD(checkPermissions:(RCTResponseSenderBlock)callback)
+{
+    NSUInteger types = [[UIApplication sharedApplication] currentUserNotificationSettings].types;
+    callback(@[@{
+                   @"alert": @((types & UIUserNotificationTypeAlert) > 0),
+                   @"badge": @((types & UIUserNotificationTypeBadge) > 0),
+                   @"sound": @((types & UIUserNotificationTypeSound) > 0),
+                   }]);
+}
+
 RCT_EXPORT_METHOD(log:(NSString *)message)
 {
     NSLog(message);
